@@ -11,6 +11,7 @@
   gap: 30px;
 }
 
+
 .form input {
   width: 100%;
   padding: 30px;
@@ -28,4 +29,12 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+
+@media (max-width: 768px) {
+  /* Adjustments for smaller screens */
+  .form {
+    padding: 30px; /* Adjust padding for smaller screens */
+  }
 }

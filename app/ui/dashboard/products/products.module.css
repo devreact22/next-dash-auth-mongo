@@ -28,13 +28,13 @@
     padding: 10px;
   }
   
-  .user{
+  .product{
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  .userImage{
+  .productImage{
     border-radius: 50%;
     object-fit: cover;
   }
@@ -58,11 +58,4 @@
   
   .delete{
     background-color: crimson;
-  }
-
-  @media (max-width: 768px) {
-    /* Adjustments for smaller screens */
-    .container {
-      padding: 20px; /* Adjust padding for smaller screens */
-    }
   }

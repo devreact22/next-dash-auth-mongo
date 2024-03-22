@@ -56,3 +56,10 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .container {
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+  }

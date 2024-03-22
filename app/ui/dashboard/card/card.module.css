@@ -35,3 +35,10 @@
   .negative {
     color: red;
   }
+
+  @media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .container {
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+  }
