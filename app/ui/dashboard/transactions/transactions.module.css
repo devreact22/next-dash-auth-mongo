@@ -47,3 +47,11 @@
   .cancelled{
     background-color: #f7737375;
   }
+
+
+  @media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .container {
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+  }

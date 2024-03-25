@@ -7,10 +7,10 @@ export const authConfig = {
       authorized({ auth, request }) {
         const isLoggedIn = auth?.user;
         const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
-        console.log('is on dashborad')
-        console.log(isOnDashboard)
-        console.log('is on Logged')
-        console.log(isLoggedIn)
+       // console.log('is on dashborad')
+      //  console.log(isOnDashboard)
+       // console.log('is on Logged')
+       // console.log(isLoggedIn)
         if (isOnDashboard) {
           if (isLoggedIn) return true;
           return false;
