@@ -1,0 +1,75 @@
+.container {
+    background-color: var(--bgSoft);
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    cursor: pointer;
+   
+  }
+  
+  .container:hover{
+    background-color: #2e374a;
+  }
+  
+  .texts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .createAt {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .number {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  .detail {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  
+  .positive {
+    color: lime;
+  }
+  
+  .negative {
+    color: red;
+  }
+
+  .buttons{
+    display: flex;
+    gap: 10px;
+  }
+  
+  .button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+    
+  }
+
+  .view{
+    background-color: teal;
+  }
+  
+  .delete{
+    background-color: crimson;
+  }
+
+  @media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .container {
+      padding: 20px; /* Adjust padding for smaller screens */
+      display: grid ;
+      grid-template-columns: 1;
+    }
+  }
