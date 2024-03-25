@@ -157,6 +157,9 @@ export const deleteProduct = async (formData) => {
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
+ // console.log('authenticate')
+  //console.log(formData)
+
   try {
     await signIn("credentials", { username, password });
   } catch (err) {
