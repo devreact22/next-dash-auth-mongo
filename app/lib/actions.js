@@ -165,5 +165,5 @@ export const authenticate = async (prevState, formData) => {
       return "Wrong Credentials !!";
     }
     throw err
-  }
+  }  
 };

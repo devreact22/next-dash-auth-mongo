@@ -46,6 +46,7 @@ export const { signIn, signOut, auth } = NextAuth({
         } catch (err) {
           return null;
         }
+        
       },
     }),
   ],
