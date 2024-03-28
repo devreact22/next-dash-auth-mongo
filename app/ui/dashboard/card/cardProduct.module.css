@@ -3,10 +3,8 @@
     padding: 10px;
     border-radius: 10px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5px;
-    cursor: pointer;
-   
+    gap: 10px;
+    cursor: pointer;  
   }
   
   .container:hover{
@@ -69,8 +67,6 @@
   @media (max-width: 768px) {
     /* Adjustments for smaller screens */
     .container {
-      padding: 20px; /* Adjust padding for smaller screens */
-      display: grid ;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }

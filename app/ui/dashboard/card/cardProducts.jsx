@@ -12,8 +12,8 @@ const CardProduct = async ({ searchParams }) => {
   return (
     <>
       {products.map((product) => (
-        <div key={product.id}>
-        <div className={styles.container}>    
+        <div key={product.id} className={styles.container}>
+        <div >    
             <MdSupervisedUserCircle size={24} />
             <div className={styles.texts}>
               <h2 className={styles.title}>{product.title}</h2>

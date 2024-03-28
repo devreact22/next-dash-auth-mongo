@@ -28,9 +28,10 @@
   }
   
   .cards {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    justify-content: space-between;
+    justify-content: center;
   }
   
   .side {
@@ -42,6 +43,20 @@
     .container {
       padding: 2px;
       max-height: 100px;
-      max-width: 20px;
+      max-width: 10px;
+    }
+
+    .productpage{
+      display: none;
+    }
+
+    .cards {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      width: max-content;
+      margin: 10px;
     }
   }
+
+  
