@@ -38,3 +38,11 @@
     display: flex;
     gap: 20px;
   }
+
+  @media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .container {
+      display: none;
+      border-radius: 10px;
+    }
+  }

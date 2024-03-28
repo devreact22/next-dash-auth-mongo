@@ -49,11 +49,12 @@
   }
   
   .button{
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 5px;
     color: var(--text);
     border: none;
     cursor: pointer;
+    margin: 10px;
     
   }
 
@@ -70,6 +71,6 @@
     .container {
       padding: 20px; /* Adjust padding for smaller screens */
       display: grid ;
-      grid-template-columns: 1;
+      grid-template-columns: repeat(4, 1fr);
     }
   }

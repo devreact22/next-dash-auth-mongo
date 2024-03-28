@@ -1,23 +1,18 @@
+
 import Image from "next/image";
 import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
+import SignOutButton from "./signOutButt"
 import {
   MdDashboard,
   MdSupervisedUserCircle,
-  MdShoppingBag,
-  MdAttachMoney,
-  MdWork,
-  MdAnalytics,
-  MdPeople,
-  MdOutlineSettings,
-  MdHelpCenter,
-  MdLogout,
+  MdShoppingBag
 } from "react-icons/md";
 import { auth, signOut } from "@/app/auth";
 
 const menuItems = [
   {
-    title: "Pages",
+    // title: "Pages",
     list: [
       {
         title: "Dashboard",
@@ -33,12 +28,12 @@ const menuItems = [
         title: "Products",
         path: "/dashboard/products",
         icon: <MdShoppingBag />,
-      },
-      {
-        title: "Transactions",
-        path: "/dashboard/transactions",
-        icon: <MdAttachMoney />,
-      },
+      }
+      // {
+      //   title: "Transactions",
+      //   path: "/dashboard/transactions",
+      //   icon: <MdAttachMoney />,
+      // },
     ],
   },
   // {
@@ -80,6 +75,7 @@ const menuItems = [
 
 const Sidebar = async () => {
   const { user } = await auth();
+
   return (
     <div className={styles.container}>
       <div className={styles.user}>
@@ -111,10 +107,7 @@ const Sidebar = async () => {
           await signOut();
         }}
       >
-        <button className={styles.logout}>
-          <MdLogout />
-          Logout
-        </button>
+        <SignOutButton/>
       </form>
     </div>
   );

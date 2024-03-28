@@ -41,6 +41,7 @@
   }
   
   .logout{
+    font-size: 16px;
     padding: 20px;
     margin: 5px 0px;
     display: flex;
@@ -57,3 +58,42 @@
   .logout:hover{
     background-color: #2e374a;
   }
+
+  @media only screen and (max-width: 768px) {
+    .container {
+      position: static; /* Remove sticky behavior on small screens */
+      top: 0; /* Reset top position */
+      border-radius: 10px;
+    }
+      .user {
+
+        flex-wrap: wrap; /* Wrap user info on smaller screens */
+        margin-bottom: 10px; /* Reduce margin for better layout */
+      }
+    
+      .userImage {
+        display: none;
+       
+      }
+    
+      .userDetail {
+        margin-top: 10px; /* Add margin between image and details */
+      }
+    
+      .username,
+      .cat {
+        font-size: 14px; /* Increase font size for better readability */
+      }
+
+      .userTitle,
+      .username{
+        display: none;
+      }
+    
+      .logout {
+        padding: 10px; /* Reduce padding for smaller buttons */
+        
+      }
+    }
+
+

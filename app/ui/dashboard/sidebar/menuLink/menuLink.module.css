@@ -11,3 +11,10 @@
   .active {
     background-color: #2e374a;
   }
+
+  @media only screen and (max-width: 768px) {
+    .container {
+      padding: 10px; /* Reduce padding for smaller screens */
+      border-radius: 10px;
+    }
+  }
