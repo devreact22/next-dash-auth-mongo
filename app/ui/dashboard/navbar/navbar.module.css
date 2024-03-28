@@ -42,7 +42,14 @@
   @media (max-width: 768px) {
     /* Adjustments for smaller screens */
     .container {
-      display: none;
+      display: flex;
+      align-items: center;
       border-radius: 10px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      
     }
   }

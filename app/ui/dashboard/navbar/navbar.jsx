@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import styles from "./navbar.module.css";
+import { useEffect, useState } from 'react'
 import {
   MdNotifications,
   MdOutlineChat,
@@ -11,6 +12,20 @@ import {
 const Navbar = () => {
   const pathname = usePathname();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize(); // Check initial screen size
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>{pathname.split("/").pop()}</div>
@@ -19,11 +34,19 @@ const Navbar = () => {
           <MdSearch />
           <input type="text" placeholder="Search..." className={styles.input} />
         </div>
-        <div className={styles.icons}>
+        {isMobile ? (
+        ""
+        )
+       :
+       (
+       <>
+       <div className={styles.icons}>
           <MdOutlineChat size={20} />
           <MdNotifications size={20} />
           <MdPublic size={20} />
         </div>
+        </>
+        )}
       </div>
     </div>
   );

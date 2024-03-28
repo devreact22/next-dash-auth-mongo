@@ -6,7 +6,7 @@
     flex: 1;
     background-color: var(--bgSoft);
     padding: 20px;
-    min-height: 100vh;
+    height: 100vh;
   }
   
   .content {
@@ -56,6 +56,17 @@
       gap: 10px;
       width: max-content;
       margin: 10px;
+    }
+    .content {
+      padding: 5px;
+    }
+
+    .menu {
+      background-color: var(--bgSoft);
+      padding: 20px;
+      margin: 10 10 10 10 ;
+      height: 220px;
+      border-radius: 10px;
     }
   }
 
