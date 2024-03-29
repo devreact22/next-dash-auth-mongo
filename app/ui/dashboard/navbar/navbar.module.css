@@ -45,6 +45,7 @@
       display: flex;
       align-items: center;
       border-radius: 10px;
+      width: max-content;
     }
 
     .menu {

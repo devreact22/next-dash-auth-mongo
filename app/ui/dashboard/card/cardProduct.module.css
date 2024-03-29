@@ -1,16 +1,51 @@
 .container {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+ 
+}
+
+.cards {
     background-color: var(--bgSoft);
-    padding: 10px;
-    border-radius: 10px;
-    display: grid;
+    padding: 25px;
+    border-radius: 10px; 
     gap: 10px;
+    margin: 10px;
     cursor: pointer;  
   }
-  
-  .container:hover{
-    background-color: #2e374a;
+
+  .allinside {
+    display: flex;
+   
+  }
+
+  .user {
+    display: flex;
+    padding: auto;
+    justify-content: center;
+  }
+
+  .top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
+  .cards:hover{
+    background-color: #2e374a;
+  }
+
+  .addButton{
+    padding: 10px;
+    background-color: #5d57c9;
+    margin: 20px;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
   .texts {
     display: flex;
     flex-direction: column;
@@ -19,8 +54,12 @@
 
   .createAt {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+  }
+  .buttons{
+    display: flex;
+    gap: 10px;
+    justify-content:flex-end;
   }
   
   .number {
@@ -41,11 +80,7 @@
     color: red;
   }
 
-  .buttons{
-    display: flex;
-    gap: 10px;
-  }
-  
+ 
   .button{
     padding: 10px 10px;
     border-radius: 5px;
@@ -67,6 +102,11 @@
   @media (max-width: 768px) {
     /* Adjustments for smaller screens */
     .container {
-      grid-template-columns: repeat(2, 1fr);
+      flex-direction: column;
     }
+    .texts {
+   
+      gap: 10px;
+    }
+  
   }

@@ -2,6 +2,7 @@
 // import Card from "../ui/dashboard/card/card";
 //import Chart from "../ui/dashboard/chart/chart";
 import CardProduct from "../ui/dashboard/card/cardProducts";
+import AddButton from "../ui/dashboard/card/addButton";
 import ProductsPage from "./products/page";
 import styles from "../ui/dashboard/dashboard.module.css";
 // import Rightbar from "../ui/dashboard/rightbar/rightbar";
@@ -16,12 +17,15 @@ const Dashboard = () => {
             <Card item={item} key={item.id} />
           ))}
         </div> */}
-        <div className={styles.cards}>
+         <div>
+            <AddButton  />   
+        </div>
+        <div>
             <CardProduct  />   
         </div>
-        <div  className={styles.productpage}>
+        {/* <div  className={styles.productpage}>
         <ProductsPage />
-        </div>
+        </div> */}
         {/* <Transactions /> */}
         {/* <Chart /> */}
       </div>

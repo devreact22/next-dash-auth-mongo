@@ -20,14 +20,19 @@ const menuItems = [
         icon: <MdDashboard />,
       },
       {
-        title: "Users",
-        path: "/dashboard/users",
-        icon: <MdSupervisedUserCircle />,
+        title: "Test",
+        path: "/dashboard/test",
+        icon: <MdShoppingBag />,
       },
       {
         title: "Products",
         path: "/dashboard/products",
         icon: <MdShoppingBag />,
+      },
+      {
+        title: "Users",
+        path: "/dashboard/users",
+        icon: <MdSupervisedUserCircle />,
       }
       // {
       //   title: "Transactions",

@@ -10,28 +10,19 @@
   }
   
   .content {
-    flex: 4;
+    flex: 4; 
     padding: 20px;
   }
-  
-  .wrapper {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
+
   .main {
     flex: 3;
-    display: flex;
-    flex-direction: column;
     gap: 20px;
   }
   
   .cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
   }
   
   .side {
@@ -42,8 +33,7 @@
     /* Adjustments for smaller screens */
     .container {
       padding: 2px;
-      max-height: 100px;
-      max-width: 10px;
+      
     }
 
     .productpage{
@@ -51,11 +41,8 @@
     }
 
     .cards {
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      width: max-content;
-      margin: 10px;
+      display: flex; 
+   
     }
     .content {
       padding: 5px;
@@ -65,7 +52,7 @@
       background-color: var(--bgSoft);
       padding: 20px;
       margin: 10 10 10 10 ;
-      height: 220px;
+      height: 270px;
       border-radius: 10px;
     }
   }
