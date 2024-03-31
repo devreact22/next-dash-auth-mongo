@@ -13,9 +13,9 @@ const AddProductPage = () => {
           <option value="cresima">Cresima</option>
         </select>
         <input type="number" placeholder="price" name="price" required />
-        <input type="number" placeholder="stock" name="stock" required />
-        <input type="text" placeholder="color" name="color" />
-        <input type="text" placeholder="size" name="size" />
+        <input type="number" placeholder="stock" name="stock" />
+        <input type="text" placeholder="Per quando?" name="data" />
+        <input type="text" placeholder="Porzioni?" name="size" />
         <textarea
           required
           name="desc"

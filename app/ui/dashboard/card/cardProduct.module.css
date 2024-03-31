@@ -13,17 +13,18 @@
     gap: 10px;
     margin: 10px;
     cursor: pointer;  
+    display: inline-flex;
+    justify-content: space-evenly;
   }
 
   .allinside {
     display: flex;
-   
   }
 
   .user {
     display: flex;
     padding: auto;
-    justify-content: center;
+   
   }
 
   .top{
@@ -48,6 +49,7 @@
 
   .texts {
     display: flex;
+    padding: 5px;
     flex-direction: column;
     gap: 10px;
   }
@@ -58,8 +60,10 @@
   }
   .buttons{
     display: flex;
-    gap: 10px;
+    padding: 10px;
+    flex-direction: column;
     justify-content:flex-end;
+    align-items: center;
   }
   
   .number {
@@ -105,8 +109,22 @@
       flex-direction: column;
     }
     .texts {
-   
       gap: 10px;
+    }
+
+    .cards {
+      
+      display: flex;
+      justify-content: space-around;
+    }
+
+
+    .buttons{
+      display: flex;
+      padding: 10px;
+      flex-direction: column;
+      justify-content:flex-end;
+      align-items:flex-end;
     }
   
   }

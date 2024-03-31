@@ -24,17 +24,17 @@ const SingleProductPage = async ({ params }) => {
           <input type="number" name="price" placeholder={product.price} />
           <label>Stock</label>
           <input type="number" name="stock" placeholder={product.stock} />
-          <label>Color</label>
+          <label>Data</label>
           <input
             type="text"
-            name="color"
-            placeholder={product.color || "color"}
+            name="data"
+            placeholder={product.data || "data"}
           />
-          <label>Size</label>
+          <label>Porzioni</label>
           <textarea
             type="text"
             name="size"
-            placeholder={product.size || "size"}
+            placeholder={product.size || "Porzioni"}
           />
           <label>Cat</label>
           <select name="cat" id="cat">

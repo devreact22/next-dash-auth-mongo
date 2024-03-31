@@ -21,7 +21,7 @@ const TestPage = async ({ searchParams }) => {
       </div>
       <table className={styles.table}>
         <thead>
-          <tr>
+        <tr className={styles.titoli}>
             <td>Title</td>
             <td>Description</td>
             <td>Price</td>

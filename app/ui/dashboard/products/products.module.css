@@ -59,3 +59,34 @@
   .delete{
     background-color: crimson;
   }
+
+  @media (max-width: 768px) {
+    .table th,
+    .table td {
+      display: block;
+      width: 100%;
+      
+    }
+  
+    .table td:first-child {
+      
+      position: relative;
+      padding-top: 30px; /* Adjust to accommodate image height */
+    }
+  
+    .table td:first-child .productImage {
+      position: absolute;
+      top: 50%;  
+      left: 70%; 
+      width: 30%;
+      height: 70%;
+      object-fit: cover;
+      border-radius: 10%;
+    }
+
+    .titoli {
+      display: none;
+    }
+
+   
+  }

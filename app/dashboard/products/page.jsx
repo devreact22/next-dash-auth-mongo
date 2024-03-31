@@ -21,7 +21,7 @@ const ProductsPage = async ({ searchParams }) => {
       </div>
       <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.titoli}>
             <td>Title</td>
             <td>Description</td>
             <td>Price</td>
@@ -37,7 +37,7 @@ const ProductsPage = async ({ searchParams }) => {
                 <div className={styles.product}>
                   <Image
                     src={product.img || "/noproduct.jpg"}
-                    alt=""
+                    alt="product"
                     width={40}
                     height={40}
                     className={styles.productImage}

@@ -16,14 +16,18 @@ const CardProduct = async ({ searchParams }) => {
         <div className={styles.cards}>
           <div key={product.id}>
             <div className={styles.allinside}>
-            <div className={styles.user}>
+            {/* <div className={styles.user}>
               <MdSupervisedUserCircle size={24} />
-              </div>
+              </div> */}
               <div className={styles.texts}>
+                <MdSupervisedUserCircle size={24} />
                 <h2 className={styles.title}>{product.title}</h2>
                 <h5 className={styles.createAt}>
-                  {product.createdAt?.toString().slice(4, 16)}
+                {product.data}
                 </h5>
+                {/* <h5 className={styles.createAt}>
+                  {product.createdAt?.toString().slice(4, 16)}
+                </h5> */}
               </div>
               <div className={styles.buttons}>
                 <Link href={`/dashboard/products/${product.id}`}>

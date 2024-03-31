@@ -70,7 +70,7 @@ export const updateUser = async (formData) => {
 };
 
 export const addProduct = async (formData) => {
-  const { title, desc, price, stock, color, size } =
+  const { title, desc, price, stock, data, size } =
     Object.fromEntries(formData);
 
   try {
@@ -81,7 +81,7 @@ export const addProduct = async (formData) => {
       desc,
       price,
       stock,
-      color,
+      data,
       size,
     });
 
@@ -96,7 +96,7 @@ export const addProduct = async (formData) => {
 };
 
 export const updateProduct = async (formData) => {
-  const { id, title, desc, price, stock, color, size } =
+  const { id, title, desc, price, stock, data, size } =
     Object.fromEntries(formData);
 
   try {
@@ -107,7 +107,7 @@ export const updateProduct = async (formData) => {
       desc,
       price,
       stock,
-      color,
+      data,
       size,
     };
 
