@@ -160,6 +160,9 @@ export const authenticate = async (prevState, formData) => {
   //console.log(formData)
   try {
     await signIn("credentials", { username, password });
+    console.log('vediamo prova');
+    console.log(username);
+    console.log(password);
   } catch (err) {
     if (err.message.includes("CredentialsSignin")) {
       return "Wrong Credentials !!";

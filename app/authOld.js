@@ -24,7 +24,7 @@ const login = async (credentials) => {
     // console.log("pass ciaoo");
     //console.log(credentials.password, user.password);
 
-    console.log('qui arrivo');
+    
     if (isPasswordCorrect) throw new Error("Wrong credentials! ciaoooo");
 
     console.log("ciaoo userr");
@@ -40,16 +40,12 @@ export const { signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
       async authorize(credentials) {
         try {
           const user = await login(credentials);
           return user;
         } catch (err) {
-          // qui errore non puo essere vuoto e se vuoto ti manda come se esiste
           return null;
-          //console.log();
-          //throw new Error("Wrong credentials!**");
         }
       },
     }),
