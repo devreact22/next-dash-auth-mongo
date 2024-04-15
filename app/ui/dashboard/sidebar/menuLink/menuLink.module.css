@@ -14,7 +14,7 @@
 
   @media only screen and (max-width: 768px) {
     .container {
-      padding: 10px; /* Reduce padding for smaller screens */
+      padding: 10px; 
       border-radius: 10px;
     }
   }
