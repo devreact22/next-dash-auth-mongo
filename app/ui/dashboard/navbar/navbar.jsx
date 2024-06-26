@@ -6,7 +6,6 @@ import {
   MdNotifications,
   MdOutlineChat,
   MdPublic,
-  MdSearch,
 } from "react-icons/md";
 
 const Navbar = () => {

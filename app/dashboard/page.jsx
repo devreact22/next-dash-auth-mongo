@@ -3,7 +3,7 @@
 //import Chart from "../ui/dashboard/chart/chart";
 import CardProduct from "../ui/dashboard/card/cardProducts";
 import AddButton from "../ui/dashboard/card/addButton";
-import ProductsPage from "./products/page";
+//import ProductsPage from "./products/page";
 import styles from "../ui/dashboard/dashboard.module.css";
 // import Rightbar from "../ui/dashboard/rightbar/rightbar";
 //import Transactions from "../ui/dashboard/transactions/transactions";

@@ -1,7 +1,7 @@
 import { MdSupervisedUserCircle } from "react-icons/md";
 import { fetchProducts } from "@/app/lib/data";
 import { deleteProduct } from "@/app/lib/actions";
-import Search from "@/app/ui/dashboard/search/search";
+//import Search from "@/app/ui/dashboard/search/search";
 import Link from "next/link";
 import styles from "./cardProduct.module.css";
 
@@ -12,8 +12,8 @@ const CardProduct = async ({ searchParams }) => {
 
   return (
     <div className={styles.container}>
-      {products.map((product) => (
-        <div className={styles.cards}>
+      {products.map((product ) => (
+        <div key={product.id} className={styles.cards}>
           <div key={product.id}>
             <div className={styles.allinside}>
             {/* <div className={styles.user}>
