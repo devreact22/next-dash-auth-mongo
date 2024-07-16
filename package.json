@@ -11,8 +11,9 @@
   "dependencies": {
     "@next/eslint-plugin-next": "14.0.1",
     "bcrypt": "^5.1.1",
+    "bson": "^6.8.0",
     "mongoose": "^8.2.2",
-    "next": "14.0.1",
+    "next": "14.2",
     "next-auth": "^5.0.0-beta.4",
     "react": "18",
     "react-dom": "18",

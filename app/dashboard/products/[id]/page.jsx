@@ -11,7 +11,16 @@ const SingleProductPage = async ({ params }) => {
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer}>
-          <Image src="/noavatar.png" alt="" fill />
+          {product.image ? (
+             <Image 
+             src={product.imageDetails.data}
+             alt={product.title || "Product image"}
+             fill
+             style={{objectFit: "cover"}}
+           />
+          ) : (
+            <div>No image available</div>
+          )}
         </div>
         {product.title}
       </div>
@@ -25,11 +34,7 @@ const SingleProductPage = async ({ params }) => {
           <label>Stock</label>
           <input type="number" name="stock" placeholder={product.stock} />
           <label>Data</label>
-          <input
-            type="text"
-            name="data"
-            placeholder={product.data || "data"}
-          />
+          <input type="text" name="data" placeholder={product.data || "data"} />
           <label>Porzioni</label>
           <textarea
             type="text"

@@ -1,11 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { Readable } from 'stream';
 import { Product, User } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
+import { GridFSBucket } from 'mongodb';
+import mongoose from 'mongoose';
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -69,62 +72,122 @@ export const updateUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
-export const addProduct = async (formData) => {
-  const { title, desc, price, stock, data, size } =
-    Object.fromEntries(formData);
 
+export const addProduct = async (formData) => {
   try {
-    connectToDB();
+    await connectToDB();
+    
+    const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
+    const file = formData.get("image");
+
+    let imageId;
+    if (file) {
+      const db = mongoose.connection.db;
+      const bucket = new GridFSBucket(db, {
+        bucketName: "productImages"
+      });
+
+      const stream = bucket.openUploadStream(file.name, {
+        contentType: file.type,
+      });
+
+      const buffer = await file.arrayBuffer();
+      const fileStream = Readable.from(Buffer.from(buffer));
+
+      imageId = await new Promise((resolve, reject) => {
+        fileStream.pipe(stream)
+          .on('finish', () => resolve(stream.id))
+          .on('error', reject);
+      });
+    }
 
     const newProduct = new Product({
       title,
       desc,
-      price,
-      stock,
+      price: Number(price),
+      stock: Number(stock),
       data,
       size,
+      image: imageId
     });
 
-    await newProduct.save();
+    console.log("Nuovo prodotto prima del salvataggio:", newProduct);
+
+    const savedProduct = await newProduct.save();
+    console.log("Prodotto salvato:", savedProduct);
+
+    revalidatePath("/dashboard/products");
   } catch (err) {
-    console.log(err);
-    throw new Error("Failed to create product!");
+    console.error("Errore dettagliato:", err);
+    throw new Error("Failed to create product: " + err.message);
   }
 
-  revalidatePath("/dashboard/products");
+  // Esegui il redirect fuori dal blocco try-catch
   redirect("/dashboard/products");
 };
 
-export const updateProduct = async (formData) => {
-  const { id, title, desc, price, stock, data, size } =
-    Object.fromEntries(formData);
 
+export async function updateProduct(formData) {
   try {
-    connectToDB();
+    await connectToDB();
+
+    const { id, title, desc, price, stock, data, size } = Object.fromEntries(formData);
+    const file = formData.get("image");
 
     const updateFields = {
       title,
       desc,
-      price,
-      stock,
+      price: price ? Number(price) : undefined,
+      stock: stock ? Number(stock) : undefined,
       data,
       size,
     };
 
+    // Rimuovi i campi vuoti o undefined
     Object.keys(updateFields).forEach(
-      (key) =>
-        (updateFields[key] === "" || undefined) && delete updateFields[key]
+      (key) => (updateFields[key] === "" || updateFields[key] === undefined) && delete updateFields[key]
     );
 
-    await Product.findByIdAndUpdate(id, updateFields);
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to update product!");
-  }
+    // Gestione dell'upload dell'immagine, se presente
+    if (file && file.size > 0) {
+      const db = mongoose.connection.db;
+      const bucket = new GridFSBucket(db, {
+        bucketName: "productImages"
+      });
 
-  revalidatePath("/dashboard/products");
+      const stream = bucket.openUploadStream(file.name, {
+        contentType: file.type,
+      });
+
+      const buffer = await file.arrayBuffer();
+      const fileStream = Readable.from(Buffer.from(buffer));
+
+      const imageId = await new Promise((resolve, reject) => {
+        fileStream.pipe(stream)
+          .on('finish', () => resolve(stream.id))
+          .on('error', reject);
+      });
+
+      updateFields.image = imageId;
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true });
+
+    if (!updatedProduct) {
+      throw new Error("Product not found");
+    }
+
+    revalidatePath("/dashboard/products");
+  } catch (err) {
+    console.error("Errore durante l'aggiornamento del prodotto:", err);
+    return { error: "Failed to update product: " + err.message };
+  }
+  // Esegui il redirect fuori dal blocco try-catch
   redirect("/dashboard/products");
-};
+}
+
+
+// delete User
 
 export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -140,6 +203,8 @@ export const deleteUser = async (formData) => {
   revalidatePath("/dashboard/products");
 };
 
+
+// delete Product
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
