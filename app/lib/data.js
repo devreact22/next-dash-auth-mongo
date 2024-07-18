@@ -62,8 +62,9 @@ export const fetchProducts = async (q, page) => {
 export const fetchProduct = async (id) => {
   try {
     connectToDB();
+    
     const product = await Product.findById(id);
-    console.log('ecco il solo id', id);
+    //console.log('ecco il solo id', id);
 
     const db = mongoose.connection.db;
     const bucket =  new GridFSBucket(db, {
@@ -71,20 +72,19 @@ export const fetchProduct = async (id) => {
     });
     console.log('Bucket creato con nome di default:', bucket ? 'Sì' : 'No');
     console.log('GridFSBucket disponibile:', typeof GridFSBucket);
-    console.log("ID dell'immagine cercata:", product.image);
+    console.log("ID dell'immagine cercata:", bucket);
 
 
     if (product && product.image) {
-
       const db = mongoose.connection.db;
       const bucket =  new GridFSBucket(db, {
         bucketName: "productImages"
       });
-      console.log('Bucket creato:', bucket ? 'Sì' : 'No');
-      console.log('GridFSBucket disponibile:', typeof GridFSBucket);
-      console.log('ecco il bucket', bucket);
+      // console.log('Bucket creato:', bucket ? 'Sì' : 'No');
+      // console.log('GridFSBucket disponibile:', typeof GridFSBucket);
+      // console.log('ecco il bucket', bucket);
       
-      console.log("ID dell'immagine cercata:", product.image);
+      // console.log("ID dell'immagine cercata:", product.image);
 
       const file = await bucket.find({ _id: ObjectId(product.image) }).toArray();
       console.log("Risultato della ricerca:", file);
@@ -109,8 +109,8 @@ export const fetchProduct = async (id) => {
       }
     }
     else {
-      // Il file non esiste nel bucket
-      console.log("L'immagine non esiste nel bucket", );
+      
+      //console.log("L'immagine non esiste nel bucket", );
       product.imageDetails = { error: "Immagine non trovata" };
     }
     return product;
