@@ -1,14 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Readable } from 'stream';
 import { Product, User } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
-import { GridFSBucket } from 'mongodb';
-import mongoose from 'mongoose';
+
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -78,28 +76,7 @@ export const addProduct = async (formData) => {
     await connectToDB();
     
     const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
-    const file = formData.get("image");
-
-    let imageId;
-    if (file) {
-      const db = mongoose.connection.db;
-      const bucket = new GridFSBucket(db, {
-        bucketName: "productImages"
-      });
-
-      const stream = bucket.openUploadStream(file.name, {
-        contentType: file.type,
-      });
-
-      const buffer = await file.arrayBuffer();
-      const fileStream = Readable.from(Buffer.from(buffer));
-
-      imageId = await new Promise((resolve, reject) => {
-        fileStream.pipe(stream)
-          .on('finish', () => resolve(stream.id))
-          .on('error', reject);
-      });
-    }
+   
 
     const newProduct = new Product({
       title,
@@ -108,7 +85,6 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
-      image: imageId
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);
@@ -132,7 +108,6 @@ export async function updateProduct(formData) {
     await connectToDB();
 
     const { id, title, desc, price, stock, data, size } = Object.fromEntries(formData);
-    const file = formData.get("image");
 
     const updateFields = {
       title,
@@ -148,28 +123,6 @@ export async function updateProduct(formData) {
       (key) => (updateFields[key] === "" || updateFields[key] === undefined) && delete updateFields[key]
     );
 
-    // Gestione dell'upload dell'immagine, se presente
-    if (file && file.size > 0) {
-      const db = mongoose.connection.db;
-      const bucket = new GridFSBucket(db, {
-        bucketName: "productImages"
-      });
-
-      const stream = bucket.openUploadStream(file.name, {
-        contentType: file.type,
-      });
-
-      const buffer = await file.arrayBuffer();
-      const fileStream = Readable.from(Buffer.from(buffer));
-
-      const imageId = await new Promise((resolve, reject) => {
-        fileStream.pipe(stream)
-          .on('finish', () => resolve(stream.id))
-          .on('error', reject);
-      });
-
-      updateFields.image = imageId;
-    }
 
     const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true });
 
