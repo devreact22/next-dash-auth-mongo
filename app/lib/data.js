@@ -51,8 +51,10 @@ export const fetchProducts = async (q, page) => {
       .skip(ITEM_PER_PAGE * (page - 1));
     return { count, products };
   } catch (err) {
-    console.log(err);
-    throw new Error("Failed to fetch products!");
+    console.error("Error fetching products:", err);
+    return { products: [] }; // In caso di errore, restituisci un array vuoto
+    //console.log(err);
+    //throw new Error("Failed to fetch products!");
   }
 };
 
@@ -62,61 +64,12 @@ export const fetchProducts = async (q, page) => {
 export const fetchProduct = async (id) => {
   try {
     connectToDB();
-    
     const product = await Product.findById(id);
-    //console.log('ecco il solo id', id);
-
-    const db = mongoose.connection.db;
-    const bucket =  new GridFSBucket(db, {
-      bucketName: "productImages"
-    });
-    console.log('Bucket creato con nome di default:', bucket ? 'Sì' : 'No');
-    console.log('GridFSBucket disponibile:', typeof GridFSBucket);
-    console.log("ID dell'immagine cercata:", bucket);
-
-
-    if (product && product.image) {
-      const db = mongoose.connection.db;
-      const bucket =  new GridFSBucket(db, {
-        bucketName: "productImages"
-      });
-      // console.log('Bucket creato:', bucket ? 'Sì' : 'No');
-      // console.log('GridFSBucket disponibile:', typeof GridFSBucket);
-      // console.log('ecco il bucket', bucket);
-      
-      // console.log("ID dell'immagine cercata:", product.image);
-
-      const file = await bucket.find({ _id: ObjectId(product.image) }).toArray();
-      console.log("Risultato della ricerca:", file);
-
-      if (file.length > 0) {
-        const stream = bucket.openDownloadStream( ObjectId(product.image));
-        const chunks = [];
-        console.log("L'immagine esiste nel bucket");
-        
-        for await (const chunk of stream) {
-          chunks.push(chunk);
-        }
-        
-        const buffer = Buffer.concat(chunks);
-        const base64Image = buffer.toString('base64');
-
-        product.imageDetails = {
-          filename: file[0].filename,
-          type: file[0].type || file[0].contentType,
-          data: `data:${file[0].type || file[0].contentType};base64,${base64Image}`
-        };
-      }
-    }
-    else {
-      
-      //console.log("L'immagine non esiste nel bucket", );
-      product.imageDetails = { error: "Immagine non trovata" };
-    }
     return product;
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to fetch product!");
+    return { products: [] };
+   // throw new Error("Failed to fetch product!");
   }
 };
 

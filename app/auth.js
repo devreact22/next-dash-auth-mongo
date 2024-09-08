@@ -47,9 +47,9 @@ export const { signIn, signOut, auth } = NextAuth({
           return user;
         } catch (err) {
           // qui errore non puo essere vuoto e se vuoto ti manda come se esiste
-          return null;
+          //return null;
           //console.log();
-          //throw new Error("Wrong credentials!**");
+          throw new Error("Wrong credentials!**");
         }
       },
     }),
