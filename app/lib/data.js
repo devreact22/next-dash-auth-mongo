@@ -1,7 +1,7 @@
 import { Product, User } from "./models";
 import { connectToDB } from "./utils";
-import mongoose from 'mongoose';
 
+// fetch data  users lista from MongoDB 
 
 export const fetchUsers = async (q, page) => {
   const regex = new RegExp(q, "i");
@@ -20,6 +20,8 @@ export const fetchUsers = async (q, page) => {
     throw new Error("Failed to fetch users!");
   }
 };
+
+// fetch data  user singolo lista from MongoDB 
 
 export const fetchUser = async (id) => {
   console.log(id);
