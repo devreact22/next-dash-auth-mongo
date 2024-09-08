@@ -1,12 +1,11 @@
-
 import Image from "next/image";
 import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
-import SignOutButton from "./signOutButt"
+import SignOutButton from "./signOutButt";
 import {
   MdDashboard,
   MdSupervisedUserCircle,
-  MdShoppingBag
+  MdShoppingBag,
 } from "react-icons/md";
 import { auth, signOut } from "@/app/auth";
 
@@ -33,7 +32,7 @@ const menuItems = [
         title: "Users",
         path: "/dashboard/users",
         icon: <MdSupervisedUserCircle />,
-      }
+      },
       // {
       //   title: "Transactions",
       //   path: "/dashboard/transactions",
@@ -86,7 +85,7 @@ const Sidebar = async () => {
       <div className={styles.user}>
         <Image
           className={styles.userImage}
-          src={ "/noavatar.png"}
+          src={"/noavatar.png"}
           alt=""
           width="50"
           height="50"
@@ -97,11 +96,11 @@ const Sidebar = async () => {
         </div>
       </div>
       <ul className={styles.list}>
-        {menuItems.map((cat) => (
-          <li key={cat.title}>
+        {menuItems.map((cat, indexCat) => (
+          <li key={`${cat.title}-${indexCat}`}>
             <span className={styles.cat}>{cat.title}</span>
-            {cat.list.map((item) => (
-              <MenuLink item={item} key={item.title} />
+            {cat.list.map((item, indexItem) => (
+              <MenuLink item={item} key={`${item.title}-${indexItem}`} />
             ))}
           </li>
         ))}
@@ -112,7 +111,7 @@ const Sidebar = async () => {
           await signOut();
         }}
       >
-        <SignOutButton/>
+        <SignOutButton />
       </form>
     </div>
   );
