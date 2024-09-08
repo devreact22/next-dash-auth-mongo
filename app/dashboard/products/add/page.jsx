@@ -4,7 +4,7 @@ import styles from "@/app/ui/dashboard/products/addProduct/addProduct.module.css
 const AddProductPage = () => {
   return (
     <div className={styles.container}>
-      <form action={addProduct} className={styles.form}>
+      <form action={addProduct} className={styles.form} encType="multipart/form-data">
         <input type="text" placeholder="title" name="title" required />
         <select name="cat" id="cat">
           <option value="general">Choose a Category</option>
@@ -16,7 +16,7 @@ const AddProductPage = () => {
         <input type="number" placeholder="stock" name="stock" />
         <input type="text" placeholder="Per quando?" name="data" />
         <input type="text" placeholder="Size?" name="size" />    
-        <input type="file" name="image" accept="image/*" />
+        <input type="file" name="imageFile" accept="image/*" />
         <textarea
           required
           name="desc"

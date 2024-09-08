@@ -6,7 +6,7 @@ import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
-
+import { UploadThing } from "uploadthing/client";
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -70,14 +70,21 @@ export const updateUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
-
 export const addProduct = async (formData) => {
   try {
     await connectToDB();
     
-    const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
-   
+    // Estrarre i dati dal formData
+    const { title, desc, price, stock, data, size, imageFile } = Object.fromEntries(formData);
 
+    // Passo 1: Caricare l'immagine utilizzando UploadThing
+    let uploadedImageUrl = null;
+    if (imageFile) {
+      const uploadResponse = await uploadFile(imageFile); // Funzione di upload
+      uploadedImageUrl = uploadResponse?.fileUrl; // Ottieni l'URL dell'immagine caricata
+    }
+
+    // Passo 2: Creare il nuovo prodotto, includendo l'URL dell'immagine caricata
     const newProduct = new Product({
       title,
       desc,
@@ -85,13 +92,16 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
+      imageUrl: uploadedImageUrl, // Aggiungi l'URL dell'immagine
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);
 
+    // Passo 3: Salvare il nuovo prodotto nel database
     const savedProduct = await newProduct.save();
     console.log("Prodotto salvato:", savedProduct);
 
+    // Passo 4: Revalidare la cache
     revalidatePath("/dashboard/products");
   } catch (err) {
     console.error("Errore dettagliato:", err);
@@ -139,9 +149,7 @@ export async function updateProduct(formData) {
   redirect("/dashboard/products");
 }
 
-
 // delete User
-
 export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
@@ -171,6 +179,7 @@ export const deleteProduct = async (formData) => {
 
   revalidatePath("/dashboard/products");
 };
+
 
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);

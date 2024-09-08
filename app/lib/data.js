@@ -52,7 +52,7 @@ export const fetchProducts = async (q, page) => {
       .skip(ITEM_PER_PAGE * (page - 1));
     return { count, products };
   } catch (err) {
-    console.error("Error fetching products yo:", err);
+    console.error("Error fetching products y:", err);
     return { products: [] }; // In caso di errore, restituisci un array vuoto
     //console.log(err);
     //throw new Error("Failed to fetch products!");
