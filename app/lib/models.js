@@ -60,8 +60,7 @@ const productSchema = new mongoose.Schema(
       min: 0,
     },
     image: {
-      type: mongoose.Schema.Types.ObjectId,  // Riferimento all'ID del file nel GridFS bucket
-      ref: 'productImages.files'  // Nome della collezione dei file nel bucket
+      type: String, // Salva l'URL dell'immagine caricata
     },
     data: {
       type: String,

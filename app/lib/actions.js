@@ -6,14 +6,16 @@ import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
-import { UploadThing } from "uploadthing/client";
+import { UTApi } from "uploadthing/server";
+
+const utapi = new UTApi();
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
 
   try {
-    connectToDB();
+    await connectToDB();
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -75,15 +77,16 @@ export const addProduct = async (formData) => {
     await connectToDB();
     
     // Estrarre i dati dal formData
-    const { title, desc, price, stock, data, size, imageFile } = Object.fromEntries(formData);
+    const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
+    const imageFile = formData.get("imageUrl"); // Ottieni il file immagine dal formData
 
     // Passo 1: Caricare l'immagine utilizzando UploadThing
     let uploadedImageUrl = null;
     if (imageFile) {
-      const uploadResponse = await uploadFile(imageFile); // Funzione di upload
-      uploadedImageUrl = uploadResponse?.fileUrl; // Ottieni l'URL dell'immagine caricata
+      const files = [imageFile]; // Poiché carichi solo un'immagine
+      const uploadedFiles = await utapi.uploadFiles(files); // Usa la funzione uploadFiles
+      uploadedImageUrl = uploadedFiles?.[0]?.fileUrl; // Ottieni l'URL dell'immagine caricata
     }
-
     // Passo 2: Creare il nuovo prodotto, includendo l'URL dell'immagine caricata
     const newProduct = new Product({
       title,
@@ -92,7 +95,7 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
-      imageUrl: uploadedImageUrl, // Aggiungi l'URL dell'immagine
+      imageUrl: uploadedImageUrl, 
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);
@@ -100,14 +103,12 @@ export const addProduct = async (formData) => {
     // Passo 3: Salvare il nuovo prodotto nel database
     const savedProduct = await newProduct.save();
     console.log("Prodotto salvato:", savedProduct);
-
     // Passo 4: Revalidare la cache
     revalidatePath("/dashboard/products");
   } catch (err) {
     console.error("Errore dettagliato:", err);
-    throw new Error("Failed to create product: " + err.message);
+    //throw new Error("Failed to create product: " + err.message);
   }
-
   // Esegui il redirect fuori dal blocco try-catch
   redirect("/dashboard/products");
 };
