@@ -12,6 +12,7 @@
     "@next/eslint-plugin-next": "14.0.1",
     "@uploadthing/react": "^6.8.0",
     "bcrypt": "^5.1.1",
+    "browser-image-compression": "^2.0.2",
     "bson": "^6.8.0",
     "firebase": "^10.12.4",
     "mongoose": "^8.2.2",
