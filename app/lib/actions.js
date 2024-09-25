@@ -6,9 +6,8 @@ import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
-import { UTApi } from "uploadthing/server";
 
-const utapi = new UTApi();
+
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -78,15 +77,9 @@ export const addProduct = async (formData) => {
     
     // Estrarre i dati dal formData
     const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
-    const imageFile = formData.get("imageUrl"); // Ottieni il file immagine dal formData
+   
 
-    // Passo 1: Caricare l'immagine utilizzando UploadThing
-    let uploadedImageUrl = null;
-    if (imageFile) {
-      const files = [imageFile]; // Poiché carichi solo un'immagine
-      const uploadedFiles = await utapi.uploadFiles(files); // Usa la funzione uploadFiles
-      uploadedImageUrl = uploadedFiles?.[0]?.fileUrl; // Ottieni l'URL dell'immagine caricata
-    }
+    
     // Passo 2: Creare il nuovo prodotto, includendo l'URL dell'immagine caricata
     const newProduct = new Product({
       title,
@@ -95,7 +88,7 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
-      imageUrl: uploadedImageUrl, 
+      //imageUrl: uploadedImageUrl, 
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);

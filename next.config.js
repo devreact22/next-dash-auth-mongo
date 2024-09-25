@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "www.pexels.com",
-      },
-    ],
+    unoptimized: true,
+    domains: ["bcdwxyqbvupekpnncaeo.supabase.co", "img.clerk.com", "www.pexels.com"],
   },
 };
 
