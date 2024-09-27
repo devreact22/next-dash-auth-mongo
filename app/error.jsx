@@ -7,7 +7,7 @@ const Error = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       window.location.reload();
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timeout);
   }, []);

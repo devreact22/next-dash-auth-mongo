@@ -76,7 +76,7 @@ export const addProduct = async (formData) => {
     await connectToDB();
     
     // Estrarre i dati dal formData
-    const { title, desc, price, stock, data, size } = Object.fromEntries(formData);
+    const { title, desc, price, stock, data, size, imageUrl } = Object.fromEntries(formData);
    
 
     
@@ -88,7 +88,7 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
-      //imageUrl: uploadedImageUrl, 
+      imageUrl, 
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);

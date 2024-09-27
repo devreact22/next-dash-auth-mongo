@@ -1,4 +1,4 @@
-import { createSupabaseClient } from "../client";
+import { createSupabaseClient } from "@/app/supabase/client";
 import { v4 as uuidv4 } from "uuid";
 import imageCompression from "browser-image-compression";
 
@@ -34,8 +34,11 @@ export const uploadImage = async ({ file, bucket, folder }) => {
     .NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucket}/${
     data?.path
   }`;
+  console.log("imaurl", imageUrl);
 
   return { imageUrl, error: "" };
+
+
 };
 
 export const deleteImage = async (imageUrl) => {
