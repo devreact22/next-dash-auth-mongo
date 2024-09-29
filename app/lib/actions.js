@@ -7,8 +7,6 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 
-
-
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
@@ -74,12 +72,11 @@ export const updateUser = async (formData) => {
 export const addProduct = async (formData) => {
   try {
     await connectToDB();
-    
+
     // Estrarre i dati dal formData
     const { title, desc, price, stock, data, size, imageUrl } = Object.fromEntries(formData);
-   
+    const parsedImageUrl = JSON.parse(imageUrl); // Analizza l'array JSON
 
-    
     // Passo 2: Creare il nuovo prodotto, includendo l'URL dell'immagine caricata
     const newProduct = new Product({
       title,
@@ -88,7 +85,7 @@ export const addProduct = async (formData) => {
       stock: Number(stock),
       data,
       size,
-      imageUrl, 
+      imageUrl: parsedImageUrl, // Associa l'array di URL delle immagini
     });
 
     console.log("Nuovo prodotto prima del salvataggio:", newProduct);
@@ -102,16 +99,18 @@ export const addProduct = async (formData) => {
     console.error("Errore dettagliato:", err);
     //throw new Error("Failed to create product: " + err.message);
   }
-  // Esegui il redirect fuori dal blocco try-catch
-  redirect("/dashboard/products");
+  // Esegui il redirect dopo 5 secondi
+  setTimeout(() => {
+    redirect("/dashboard/products");
+  }, 5000); // 5000 millisecondi = 5 secondi
 };
-
 
 export async function updateProduct(formData) {
   try {
     await connectToDB();
 
-    const { id, title, desc, price, stock, data, size } = Object.fromEntries(formData);
+    const { id, title, desc, price, stock, data, size } =
+      Object.fromEntries(formData);
 
     const updateFields = {
       title,
@@ -124,11 +123,14 @@ export async function updateProduct(formData) {
 
     // Rimuovi i campi vuoti o undefined
     Object.keys(updateFields).forEach(
-      (key) => (updateFields[key] === "" || updateFields[key] === undefined) && delete updateFields[key]
+      (key) =>
+        (updateFields[key] === "" || updateFields[key] === undefined) &&
+        delete updateFields[key]
     );
 
-
-    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
+      new: true,
+    });
 
     if (!updatedProduct) {
       throw new Error("Product not found");
@@ -158,7 +160,6 @@ export const deleteUser = async (formData) => {
   revalidatePath("/dashboard/products");
 };
 
-
 // delete Product
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -174,21 +175,19 @@ export const deleteProduct = async (formData) => {
   revalidatePath("/dashboard/products");
 };
 
-
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
- // console.log('authenticate')
+  // console.log('authenticate')
   //console.log(formData)
   try {
     await signIn("credentials", { username, password });
-    console.log('vediamo prova');
+    console.log("vediamo prova");
     console.log(username);
     console.log(password);
   } catch (err) {
     if (err.message.includes("CredentialsSignin")) {
       return "Wrong Credentials !!";
     }
-    throw err
-  }  
+    throw err;
+  }
 };
-

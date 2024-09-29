@@ -34,7 +34,8 @@ export const uploadImage = async ({ file, bucket, folder }) => {
     .NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucket}/${
     data?.path
   }`;
-  console.log("imaurl", imageUrl);
+
+  console.log("imageurl", imageUrl);
 
   return { imageUrl, error: "" };
 

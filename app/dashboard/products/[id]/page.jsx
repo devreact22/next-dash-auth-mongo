@@ -11,12 +11,13 @@ const SingleProductPage = async ({ params }) => {
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer}>
-          {product.image ? (
+          {product.imageUrl ? (
              <Image 
-             src={product.imageDetails.data}
+             src={product.imageUrl}
              alt={product.title || "Product image"}
              fill
              style={{objectFit: "cover"}}
+             sizes="(max-width: 768px) 100vw, 50vw"
            />
           ) : (
             <div>No image available</div>

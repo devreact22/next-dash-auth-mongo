@@ -59,9 +59,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       min: 0,
     },
-    image: {
-      type: String, // Salva l'URL dell'immagine caricata
-    },
+    imageUrl: [String],
     data: {
       type: String,
     },
