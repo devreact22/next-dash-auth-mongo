@@ -21,6 +21,7 @@ const SingleProductPage = async ({ params }) => {
               sizes="(max-width: 768px) 100vw, 50vw"
             />
             
+            
           ) : (
             <div>No image available</div>
           )}
