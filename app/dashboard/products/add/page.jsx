@@ -102,7 +102,7 @@ const AddProductPage = () => {
         <input type="text" placeholder="Per quando?" name="data" />
         <input type="text" placeholder="Taglia?" name="size" />
 
-        <div className="bg-slate-500 min-h-screen flex justify-center items-center flex-col gap-8 p-8">
+        <div className="bg-slate-600 flex justify-center items-center flex-col gap-4 p-2 mb-4">
           <input
             type="file"
             hidden
@@ -115,14 +115,14 @@ const AddProductPage = () => {
 
           <button
             type="button"
-            className="bg-slate-600 py-2 w-40 rounded-lg m-8"
+            className=""
             onClick={() => imageInputRef.current?.click()}
             disabled={isPending}
           >
             Seleziona Immagini
           </button>
 
-          <div className="flex gap-4 m-8">
+          <div className="flex gap-4 ">
             {imageUrls.map((url, index) => (
               <Image
                 key={url}

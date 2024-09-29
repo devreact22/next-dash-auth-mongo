@@ -8,7 +8,7 @@ const SingleProductPage = async ({ params }) => {
   const product = await fetchProduct(id);
 
   return (
-    <div className={styles.container}>
+    <div className="grid lg:grid-cols-2  md:grid-cols-1 justify-items-center w-full h-full p-2 mt-3 ">
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer} style={{ position: 'relative', width: '150px', height: '150px' }}>
           {product.imageUrl && product.imageUrl.length > 0 ? (
@@ -20,13 +20,15 @@ const SingleProductPage = async ({ params }) => {
               
               sizes="(max-width: 768px) 100vw, 50vw"
             />
+            
           ) : (
             <div>No image available</div>
           )}
         </div>
         {product.title}
       </div>
-      <div className={styles.formContainer}>
+
+      <div className="w-full p-4 bg-[#182236] rounded-xl">
         <form action={updateProduct} className={styles.form}>
           <input type="hidden" name="id" value={product.id} />
           <label>Title</label>
@@ -58,6 +60,7 @@ const SingleProductPage = async ({ params }) => {
           <button>Update</button>
         </form>
       </div>
+
     </div>
   );
 };
