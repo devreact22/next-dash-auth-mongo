@@ -10,15 +10,16 @@ const SingleProductPage = async ({ params }) => {
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        <div className={styles.imgContainer}>
-          {product.imageUrl ? (
-             <Image 
-             src={product.imageUrl}
-             alt={product.title || "Product image"}
-             fill
-             style={{objectFit: "cover"}}
-             sizes="(max-width: 768px) 100vw, 50vw"
-           />
+        <div className={styles.imgContainer} style={{ position: 'relative', width: '150px', height: '150px' }}>
+          {product.imageUrl && product.imageUrl.length > 0 ? (
+            <Image
+              src={product.imageUrl[0]} // Usa il primo URL nell'array
+              alt={product.title || "Product image"}
+              fill
+              style={{ objectFit: "cover" }}
+              
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           ) : (
             <div>No image available</div>
           )}
