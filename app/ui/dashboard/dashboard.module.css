@@ -1,23 +1,24 @@
 .container {
     display: flex;
+    padding:10px;
   }
   
   .menu {
     flex: 1;
     background-color: var(--bgSoft);
-    padding: 20px;
-    height: 60vh;
+    padding: 10px;
+    height: 80vh;
     border-radius: 10px;
   }
   
   .content {
     flex: 4; 
-    padding: 20px;
+    padding: 10px;
   }
 
   .main {
     flex: 3;
-    gap: 20px;
+    gap: 10px;
   }
   
   .cards {
