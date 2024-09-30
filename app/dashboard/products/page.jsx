@@ -34,15 +34,18 @@ const ProductsPage = async ({ searchParams }) => {
           {products.map((product) => (
             <tr key={product.id}>
               <td>
-                <div className={styles.product}>
-                  <Image
-                    src={product.imageUrl || "/noproduct.jpg"}
-                    alt="product"
-                    width={40}
-                    height={40}
-                    className={styles.productImage}
-                  />
-                  {product.title}
+                <div className="relative w-[50px] h-[50px] ">
+                  {product.imageUrl && product.imageUrl.length > 0 ? (
+                    <Image
+                      src={product.imageUrl[0]} // Usa il primo URL nell'array
+                      alt={product.title || "Product image"}
+                      fill
+                      style={{ objectFit: "cover", borderRadius:"10px"}}
+                      //sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div>No img</div>
+                  )}
                 </div>
               </td>
               <td>{product.desc}</td>
