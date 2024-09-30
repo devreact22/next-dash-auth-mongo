@@ -3,6 +3,7 @@ import { fetchProducts } from "@/app/lib/data";
 import { deleteProduct } from "@/app/lib/actions";
 //import Search from "@/app/ui/dashboard/search/search";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./cardProduct.module.css";
 
 const CardProduct = async ({ searchParams }) => {
@@ -19,9 +20,11 @@ const CardProduct = async ({ searchParams }) => {
             {/* <div className={styles.user}>
               <MdSupervisedUserCircle size={24} />
               </div> */}
+               
               <div className={styles.texts}>
                 <MdSupervisedUserCircle size={24} />
                 <h2 className={styles.title}>{product.title}</h2>
+              
                 <h5 className={styles.createAt}>
                 {product.data}
                 </h5>
@@ -42,6 +45,19 @@ const CardProduct = async ({ searchParams }) => {
                   </button>
                 </form>
               </div>
+              <div className="fixed w-[70px] h-[70px] justify-center ">
+                  {product.imageUrl && product.imageUrl.length > 0 ? (
+                    <Image
+                      src={product.imageUrl[0]} // Usa il primo URL nell'array
+                      alt={product.title || "Product image"}
+                      fill
+                      style={{ objectFit: "cover", borderRadius:"10px"}}
+                      //sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div>No img</div>
+                  )}
+                </div>
             </div>
           </div>
         </div>
