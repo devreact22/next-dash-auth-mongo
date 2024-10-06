@@ -5,47 +5,14 @@ import Image from "next/image";
 //import { createSupabaseClient } from "@/app/supabase/client";
 
 const SingleProductPage = async ({ params }) => {
+  
   const { id } = params;
   const product = await fetchProduct(id);
 
-  // async function updateProductPhoto(formData) {
-  //   'use server'
+  console.log('ecco id ', id);
+ // console.log('ecco product', product);
 
-  //   const file = formData.get('photo');
-  //   if (!file) {
-  //     throw new Error('No file uploaded');
-  //   }
-
-  //   // Carica il file su Supabase Storage
-  //   const fileName = `product_${id}_${Date.now()}.png`;
-  //   const { error } = await createSupabaseClient.storage
-  //     .from('listingImages')
-  //     .upload(fileName, file, {
-  //       cacheControl: '3600',
-  //       upsert: true
-  //     });
-
-  //   if (error) {
-  //     throw new Error('Failed to upload the photo');
-  //   }
-
-  //   // Ottieni l'URL pubblico del file caricato
-  //   const { data: { publicUrl } } = createSupabaseClient.storage
-  //     .from('products')
-  //     .getPublicUrl(fileName);
-
-  //   // Aggiorna l'URL della foto nel prodotto
-  //   const { error: updateError } = await createSupabaseClient
-  //     .from('products')
-  //     .update({ imageUrl: [publicUrl, ...(product.imageUrl || [])] })
-  //     .eq('id', id);
-
-  //   if (updateError) {
-  //     throw new Error('Failed to update product');
-  //   }
-
-  //   //revalidatePath(`/dashboard/products/${id}`);
-  // }
+ 
 
   return (
     <div className="gap-2 grid md:grid-cols-[1fr,2fr] justify-items-center w-full h-full p-2 mt-3 ">
@@ -75,7 +42,7 @@ const SingleProductPage = async ({ params }) => {
 
       <div className=" p-4 bg-[#182236] rounded-xl w-full">
         <form action={updateProduct} className={styles.form}>
-          <input type="hidden" name="id" value={product.id} />
+          <input type="hidden" name="id" value={product._id} />
           <label>Title</label>
           <input type="text" name="title" placeholder={product.title} />
           <label>Price</label>

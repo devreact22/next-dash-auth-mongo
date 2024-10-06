@@ -41,25 +41,30 @@ const userSchema = new mongoose.Schema(
 
 const productSchema = new mongoose.Schema(
   {
+    // _id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   auto: true,
+    // },
     title: {
       type: String,
-      required: true,
+      //required: true,
       unique: true,
     },
     desc: {
       type: String,
-      required: true,
+      //required: true,
     },
     price: {
       type: Number,
-      required: true,
+      //required: true,
       min: 0,
     },
     stock: {
       type: Number,
       min: 0,
     },
-    imageUrl: [String],
+     imageUrl: [String],
     data: {
       type: String,
     },
@@ -67,10 +72,11 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { timestamps: true }
+  // { timestamps: true }
 );
-
-export const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema);
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);
+

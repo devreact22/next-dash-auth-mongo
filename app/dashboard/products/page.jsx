@@ -11,7 +11,7 @@ const ProductsPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const { count, products } = await fetchProducts(q, page);
 
-  console.log(count,products);
+  //console.log('conto prod:', count, 'vedo prod:', products);
 
   return (
     <div className={styles.container}>

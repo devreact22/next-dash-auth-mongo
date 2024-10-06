@@ -74,7 +74,8 @@ export const addProduct = async (formData) => {
     await connectToDB();
 
     // Estrarre i dati dal formData
-    const { title, desc, price, stock, data, size, imageUrl } = Object.fromEntries(formData);
+    const { title, desc, price, stock, data, size, imageUrl } =
+      Object.fromEntries(formData);
     const parsedImageUrl = JSON.parse(imageUrl); // Analizza l'array JSON
 
     // Passo 2: Creare il nuovo prodotto, includendo l'URL dell'immagine caricata
@@ -105,51 +106,44 @@ export const addProduct = async (formData) => {
   }, 5000); // 5000 millisecondi = 5 secondi
 };
 
-export async function updateProduct(formData) {
+export const updateProduct = async (formData) => {
+  const { id, title, desc, price, stock, color, size } =
+    Object.fromEntries(formData);
+
+  // Log dettagliato del form data
+  console.log("Dati del form ricevuti:", formData);
+  console.log("ID estratto dal form data:", id);
+
   try {
-    await connectToDB();
-
-    const { id, title, desc, price, stock, data, size, imageUrl } = Object.fromEntries(formData);
-
-    const parsedImageUrl = JSON.parse(imageUrl); // Analizza l'array JSON
+    connectToDB();
 
     const updateFields = {
       title,
       desc,
-      price: price ? Number(price) : undefined,
-      stock: stock ? Number(stock) : undefined,
-      data,
+      price,
+      stock,
+      color,
       size,
-      imageUrl: parsedImageUrl, // Associa l'array di URL delle immagini
     };
 
     console.log("update prodotto prima del salvataggio:", updateFields);
 
-    // Rimuovi i campi vuoti o undefined
     Object.keys(updateFields).forEach(
       (key) =>
-        (updateFields[key] === "" || updateFields[key] === undefined) &&
-        delete updateFields[key]
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
     );
 
-    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
-      new: true,
-    });
+    await Product.findByIdAndUpdate(id, updateFields);
 
-    console.log("Prodotto update ok! :", updatedProduct);
-
-    if (!updatedProduct) {
-      throw new Error("Product not found");
-    }
-
-    revalidatePath("/dashboard/products");
+    console.log("Prodotto update ok! :", id, updateFields);
   } catch (err) {
-    console.error("Errore durante l'aggiornamento del prodotto:", err);
-    return { error: "Failed to update product: " + err.message };
+    console.log(err);
+    //throw new Error("Failed to update product!");
   }
-  // Esegui il redirect fuori dal blocco try-catch
+
+  revalidatePath("/dashboard/products");
   redirect("/dashboard/products");
-}
+};
 
 // delete User
 export const deleteUser = async (formData) => {

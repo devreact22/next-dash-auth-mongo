@@ -39,7 +39,7 @@ export const fetchUser = async (id) => {
 // fetch data  products lista from MongoDB 
 
 export const fetchProducts = async (q, page) => {
-  console.log(q);
+  //console.log(q);
   const regex = new RegExp(q, "i");
 
   const ITEM_PER_PAGE = 10;
