@@ -107,7 +107,7 @@ export const addProduct = async (formData) => {
 };
 
 export const updateProduct = async (formData) => {
-  const { id, title, desc, price, stock, color, size } =
+  const { id, title, desc, price, stock,  size } =
     Object.fromEntries(formData);
 
   // Log dettagliato del form data
@@ -122,7 +122,6 @@ export const updateProduct = async (formData) => {
       desc,
       price,
       stock,
-      color,
       size,
     };
 

@@ -42,7 +42,7 @@ const SingleProductPage = async ({ params }) => {
 
       <div className=" p-4 bg-[#182236] rounded-xl w-full">
         <form action={updateProduct} className={styles.form}>
-          <input type="hidden" name="id" value={product._id} />
+        <input type="hidden" name="id" value={product._id.toString()} />
           <label>Title</label>
           <input type="text" name="title" placeholder={product.title} />
           <label>Price</label>
