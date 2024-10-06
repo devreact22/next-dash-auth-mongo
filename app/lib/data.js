@@ -63,14 +63,29 @@ export const fetchProducts = async (q, page) => {
 // fetch data single product from MongoDB
 
 export const fetchProduct = async (id) => {
+  console.log('fetchProduct called with id:', id);
   try {
-    connectToDB();
+    console.log('Attempting to connect to DB...');
+    await connectToDB();
+    console.log('DB connection successful');
+
+    console.log('Searching for product with id:', id);
     const product = await Product.findById(id);
-    return product;
+   // console.log(' product List data:', product);
+    
+    if (!product) {
+      console.log(`Product with id ${id} not found`);
+      return null;
+    }
+    
+    // Convert mongoose document to plain JavaScript object
+    const productObject = product.toObject();
+    //console.log('Processed product data:', productObject);
+    
+    return productObject;
   } catch (err) {
-    console.log(err);
-    return { products: [] };
-   // throw new Error("Failed to fetch product!");
+    console.error('Error in fetchProduct:', err);
+    throw new Error(`Failed to fetch product: ${err.message}`);
   }
 };
 

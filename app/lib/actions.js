@@ -109,8 +109,9 @@ export async function updateProduct(formData) {
   try {
     await connectToDB();
 
-    const { id, title, desc, price, stock, data, size } =
-      Object.fromEntries(formData);
+    const { id, title, desc, price, stock, data, size, imageUrl } = Object.fromEntries(formData);
+
+    const parsedImageUrl = JSON.parse(imageUrl); // Analizza l'array JSON
 
     const updateFields = {
       title,
@@ -119,7 +120,10 @@ export async function updateProduct(formData) {
       stock: stock ? Number(stock) : undefined,
       data,
       size,
+      imageUrl: parsedImageUrl, // Associa l'array di URL delle immagini
     };
+
+    console.log("update prodotto prima del salvataggio:", updateFields);
 
     // Rimuovi i campi vuoti o undefined
     Object.keys(updateFields).forEach(
@@ -131,6 +135,8 @@ export async function updateProduct(formData) {
     const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
       new: true,
     });
+
+    console.log("Prodotto update ok! :", updatedProduct);
 
     if (!updatedProduct) {
       throw new Error("Product not found");
