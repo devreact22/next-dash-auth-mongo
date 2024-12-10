@@ -10,9 +10,7 @@ const SingleProductPage = async ({ params }) => {
   const product = await fetchProduct(id);
 
   console.log('ecco id ', id);
- // console.log('ecco product', product);
-
- 
+ // console.log('ecco product', product); 77777
 
   return (
     <div className="gap-2 grid md:grid-cols-[1fr,2fr] justify-items-center w-full h-full p-2 mt-3 ">
