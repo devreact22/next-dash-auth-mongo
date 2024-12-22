@@ -1,22 +1,27 @@
+
 import { updateProduct } from "@/app/lib/actions";
 import { fetchProduct } from "@/app/lib/data";
+import ProductFotoForm from "@/app/dashboard/products/[id]/prodFoto";
 import styles from "@/app/ui/dashboard/products/singleProduct/singleProduct.module.css";
-import Image from "next/image";
-//import { createSupabaseClient } from "@/app/supabase/client";
+//import Image from "next/image";
+//import { redirect } from "next/navigation";
+
 
 const SingleProductPage = async ({ params }) => {
   
   const { id } = params;
   const product = await fetchProduct(id);
 
-  console.log('ecco id ', id);
- // console.log('ecco product', product); 77777
+ // console.log('ecco id : ', id);
+  console.log('ecco product:', product); 
+
 
   return (
     <div className="gap-2 grid md:grid-cols-[1fr,2fr] justify-items-center w-full h-full p-2 mt-3 ">
       <div className="w-full ">
         <div className="flex justify-center items-center  p-4 bg-[#182236] rounded-xl">
-          <div className="relative w-[250px] h-[250px] rounded-xl items-center ">
+        <ProductFotoForm product={product} productId={product._id} imageUrl={product.imageUrl}   />
+          {/* <div className="relative w-[250px] h-[250px] rounded-xl items-center ">
             {product.imageUrl && product.imageUrl.length > 0 ? (
               <Image
                 src={product.imageUrl[0]} // primo URL nell'array
@@ -28,14 +33,9 @@ const SingleProductPage = async ({ params }) => {
             ) : (
               <div>No image available</div>
             )}
-          </div>
+          </div> */}
         </div>
-        {/* <form action={updateProductPhoto} className="mt-4">
-          <input type="file" name="imageUrl" accept="image/*" />
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Update Photo
-          </button>
-        </form> */}
+       
       </div>
 
       <div className=" p-4 bg-[#182236] rounded-xl w-full">
@@ -74,4 +74,6 @@ const SingleProductPage = async ({ params }) => {
   );
 };
 
+
 export default SingleProductPage;
+

@@ -1,4 +1,4 @@
-import { MdSupervisedUserCircle } from "react-icons/md";
+//import { MdSupervisedUserCircle } from "react-icons/md";
 import { fetchProducts } from "@/app/lib/data";
 import { deleteProduct } from "@/app/lib/actions";
 //import Search from "@/app/ui/dashboard/search/search";
@@ -19,10 +19,9 @@ const CardProduct = async ({ searchParams }) => {
             <div className={styles.allinside}>
             {/* <div className={styles.user}>
               <MdSupervisedUserCircle size={24} />
-              </div> */}
-               
+              </div> */}              
               <div className={styles.texts}>
-                <MdSupervisedUserCircle size={24} />
+                {/* <MdSupervisedUserCircle size={24} /> */}
                 <h2 className={styles.title}>{product.title}</h2>
               
                 <h5 className={styles.createAt}>
@@ -45,7 +44,7 @@ const CardProduct = async ({ searchParams }) => {
                   </button>
                 </form>
               </div>
-              <div className="fixed w-[70px] h-[70px] justify-center ">
+              <div className="absolute w-[60px] h-[60px] flex items-center justify-center">
                   {product.imageUrl && product.imageUrl.length > 0 ? (
                     <Image
                       src={product.imageUrl[0]} // Usa il primo URL nell'array

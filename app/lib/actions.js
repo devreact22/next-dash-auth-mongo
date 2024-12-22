@@ -107,8 +107,23 @@ export const addProduct = async (formData) => {
 };
 
 export const updateProduct = async (formData) => {
-  const { id, title, desc, price, stock,  size } =
-    Object.fromEntries(formData);
+  let id, title, desc, price, stock, size;
+
+  if (formData instanceof FormData) {
+    // Se formData è un oggetto FormData
+    id = formData.get("id");
+    title = formData.get("title");
+    desc = formData.get("desc");
+    price = formData.get("price");
+    stock = formData.get("stock");
+    size = formData.get("size");
+  } else if (typeof formData === 'object' && formData !== null) {
+    // Se formData è un oggetto JavaScript semplice
+    ({ id, title, desc, price, stock, size } = formData);
+  } else {
+    console.error("Invalid formData type:", typeof formData);
+    throw new Error("Invalid formData type");
+  }
 
   // Log dettagliato del form data
   console.log("Dati del form ricevuti:", formData);
@@ -127,17 +142,18 @@ export const updateProduct = async (formData) => {
 
     console.log("update prodotto prima del salvataggio:", updateFields);
 
+    // Rimuovi campi vuoti
     Object.keys(updateFields).forEach(
       (key) =>
-        (updateFields[key] === "" || undefined) && delete updateFields[key]
+        (updateFields[key] === "" || updateFields[key] === undefined) && delete updateFields[key]
     );
 
     await Product.findByIdAndUpdate(id, updateFields);
 
-    console.log("Prodotto update ok! :", id, updateFields);
+    console.log("Prodotto aggiornato correttamente:", id, updateFields);
   } catch (err) {
-    console.log(err);
-    //throw new Error("Failed to update product!");
+    console.error("Errore durante l'aggiornamento del prodotto:", err);
+    throw new Error("Failed to update product!");
   }
 
   revalidatePath("/dashboard/products");

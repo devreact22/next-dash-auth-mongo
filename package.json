@@ -16,6 +16,7 @@
     "browser-image-compression": "^2.0.2",
     "bson": "^6.8.0",
     "firebase": "^10.12.4",
+    "lucide-react": "^0.468.0",
     "mongoose": "^8.2.2",
     "next": "14.2",
     "next-auth": "^5.0.0-beta.4",
