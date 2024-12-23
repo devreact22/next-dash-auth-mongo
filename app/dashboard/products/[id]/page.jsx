@@ -19,7 +19,7 @@ const SingleProductPage = async ({ params }) => {
   return (
     <div className="gap-2 grid md:grid-cols-[1fr,2fr] justify-items-center w-full h-full p-2 mt-3 ">
       <div className="w-full ">
-        <div className="flex justify-center items-center  p-4 bg-[#182236] rounded-xl">
+        <div className="flex justify-center items-center  p-4 bg-[#2e4053] rounded-xl">
         <ProductFotoForm product={product} productId={product._id} imageUrl={product.imageUrl}   />
           {/* <div className="relative w-[250px] h-[250px] rounded-xl items-center ">
             {product.imageUrl && product.imageUrl.length > 0 ? (
@@ -38,7 +38,7 @@ const SingleProductPage = async ({ params }) => {
        
       </div>
 
-      <div className=" p-4 bg-[#182236] rounded-xl w-full">
+      <div className=" p-4 bg-[#2e4053] rounded-xl w-full">
         <form action={updateProduct} className={styles.form}>
         <input type="hidden" name="id" value={product._id.toString()} />
           <label>Title</label>

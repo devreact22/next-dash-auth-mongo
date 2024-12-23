@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 
+
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
@@ -117,6 +118,7 @@ export const updateProduct = async (formData) => {
     price = formData.get("price");
     stock = formData.get("stock");
     size = formData.get("size");
+    //imageUrl = formData.get("imageUrl"); qui il problema che non c'è imageUrl
   } else if (typeof formData === 'object' && formData !== null) {
     // Se formData è un oggetto JavaScript semplice
     ({ id, title, desc, price, stock, size } = formData);
@@ -138,6 +140,7 @@ export const updateProduct = async (formData) => {
       price,
       stock,
       size,
+      
     };
 
     console.log("update prodotto prima del salvataggio:", updateFields);
@@ -151,13 +154,12 @@ export const updateProduct = async (formData) => {
     await Product.findByIdAndUpdate(id, updateFields);
 
     console.log("Prodotto aggiornato correttamente:", id, updateFields);
+    revalidatePath("/dashboard/products");
+    return { success: true, message: "Prodotto aggiornato correttamente" };
   } catch (err) {
     console.error("Errore durante l'aggiornamento del prodotto:", err);
-    throw new Error("Failed to update product!");
+    return { success: false, error: err.message };
   }
-
-  revalidatePath("/dashboard/products");
-  redirect("/dashboard/products");
 };
 
 // delete User
